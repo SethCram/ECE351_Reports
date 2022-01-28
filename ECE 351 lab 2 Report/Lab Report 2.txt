@@ -1,0 +1,302 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %
+% Seth Cram %
+% ECE351 Section 53 %
+% Lab Number 2 %
+% Due 02/01/2022 %
+% Any other necessary information needed to navigate the file %
+%
+%
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0,0,0.95}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Lab 2}		%TITLE						
+% Title
+\author{ Seth Cram}						
+% Author
+\date{01/25/2022}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - 53 }\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large User-Defined Functions }\\[.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Seth Cram  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+%	\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+
+\section{Introduction}
+
+The goal of lab 2 is to learn about user-defined functions in Python through the Anaconda and Spyder software. Our learning came through using user-defined functions to demonstrate signal operations such as time shifting, time scaling, time reversal, signal addition, and differentiation through steps. 
+
+%\section{Personal Notes}
+
+%Background:
+% Focussed on numpy arrays and lists
+% Most engineering math uses lin algebra bc easy to use PC's to solve this
+% if you try to use 0 as an index, python rets error?! (um no?)
+% for plots:
+%  Have title on top, x-axis label on only bot subplot (if same), y-axis label on each subplot
+%  range() = 1 arg, numpy.arange() = 3 args (last arg not inclusive)
+%
+%Can rename files in Spyder on the LHS panel
+%Can triple click in Spyder to select entire line
+
+
+\section{Equations}
+ Step Function: $u(t) = \{t<0:0, t>=0:1\}$ \\ \\
+ Ramp Function: $r(t) = \{t<0:0, t>=0:t\}$ \\ \\
+Combo Function: $y(t) =  r(t) - r(t-3) + 5u(t-3) - 2u(t-6) - 2r(t-6)$
+
+\section{Methodology}
+
+%This section will describe how you went about solving the lab. Make sure you go into detail about any method you used. %Include coding samples here if necessary. This is also where you would include necessary derivations. An example of %inserting code into the report is given. Do not go overboard on inserting code into your report, only use whats %absolutely necessary to illustrate your point.
+
+    \paragraph{} First, I took extensive notes on the background section of the lab. I then imported the necessary packages as directed. To complete the second task in part 1, I analyzed the example code provided to us. It gave a good general format for how to build functions by computing a value every step. It also helped introduce us to modeling functions after calling them. I adapted the example function code into the code shown below to compute the cosine: 
+
+    % 'l' stlisting not '1' stlisting
+    \begin{lstlisting}[language=Python] 
+    #%% Code for function in Part 1, Task 2
+        #cos plotting funct:
+        def func1(t): #arg is step size
+            y = numpy.zeros(t.shape) #init y to array of zeros 
+                                    					#w/ same # of entries as t
+            for i in range(len(t)): #run loop once each step
+                y[i] = numpy.cos(t[i]) #fill y w/ cos() evaluation at each step
+            return y    
+    \end{lstlisting}
+
+    \paragraph{} To verify the functionality of my cosine function, I plotted it. 
+
+    \includegraphics[scale=0.6]{cos.png}
+
+    \paragraph{} Moving onto Part 2, I began by deriving the equation displayed in the equation section of my report. I used a combination of the step and ramp functions, as instructed. With some help from the TA, this part went smoothly. I then created functions for the ramp and step functions in Python. The functions were verified by the graph shown below them.  
+
+    \begin{lstlisting}[language=Python]
+    #%% Code for function in Part 2, Task 2
+    def ramp_funct(t):
+        #check:print("Ramp function")
+    
+        y = numpy.zeros(t.shape) #zero out y array w/ size of t
+    
+        try: #case for array
+            for i in range(len(t)): #run loop once each step
+                if( t[i] < 0):
+                    y[i] = 0 #zero
+                else:
+                    y[i] = t[i] #fill y with t for slope of 1
+        except: #case for single val
+            if( t < 0):
+                y = 0
+            else:
+                y = t #fill y with t for slope of 1    
+        return y
+
+    def step_funct(t):
+        #check: print("Step funct")
+        
+        y = numpy.zeros(t.shape) #zero out y array w/ size of t
+    
+        try: #case for array of vals passed
+            for i in range(len(t)): #run loop once each step
+                if(t[i] < 0): #less than 0
+                    y[i] = 0;
+                else:    #equal to great than zero
+                    y[i] = 1 #fill y with flat line at 1
+        
+        except: #case for a single value passed
+            if(t < 0): #less than 0
+                y = 0;
+            else:    #equal to great than zero
+                y = 1 #fill y with flat line at 1
+        return y
+    \end{lstlisting}
+
+    \includegraphics[scale=0.6]{ramp and step.png}
+
+    \paragraph{} As seen above, I included a try-exception statement in both functions in-case they were ever called with only a single time value rather than an array of time values. This was necessary for the way I implemented the function I derived in task 1 of this part. Creating a Python function for the derived function proved more difficult than expected. After several iterations, I came up with a pretty succinct approach with help from classmates:
+
+    \begin{lstlisting}[language=Python]
+    #%% Code for function in Part 2, Task 3
+        def combo_funct(t):
+            y = numpy.zeros(t.shape) #zero out y array w/ size of t
+    
+            for i in range(len(t)):
+                y[i] = ramp_funct(t[i]) - ramp_funct(t[i]-3) + 5*step_funct(t[i]-3) - 2*step_funct(t[i]-6) - 2*ramp_funct(t[i]-6)
+            return y
+    \end{lstlisting}
+
+    \includegraphics[scale=0.6]{combo funct.png}
+
+    \paragraph{} For part 3, I first hand-drew a derivative plot for the above seen function.  
+
+    \includegraphics[scale=0.07]{hand drawn graph.jpeg}
+
+    \paragraph{} I then plotted tasks 1 through 4, which mainly consisted of inputting different arguments to my user-defined 'Combo Function'. These plots are shown in the Results section of this report. What proved more challenging was task 5, which instructed me to use a difference function to plot the derivative of 'Combo Function' in Python. I had to look into the documentation for 'numpy.diff()' and ended up rewriting this part several times. Bouncing ideas off of classmates and the TA helped immensely.     
+
+    \paragraph{} Using numpy.diff(), I was able to compute the derivative of my 'Combo Function' with respect to time by finding the y(t) difference between each value, then finding the differences in time, and plotting all that over the original time range. 
+    
+\section{Results}
+
+\paragraph{} Displayed above in the 'Methodologies' section of the report, are the code for the functions and their corresponding verification graphs. These could have been placed in this section, but I felt they flowed better through with my step-by-step explanation in the above section. 
+
+\paragraph{} So, for the results of part 3, I'll start with my expectations and then the resulting graph and discuss how they compare. So, for a time reversal, I expected the 'Combo Function' graph, but flipped over the f(t) axis. Time reversal essentially means to input a negative time to the function. When I applied a time reversal and plotted the result I got:
+
+\includegraphics[scale=0.6]{reversal.png}
+
+ \paragraph{} As seen above, my expectations held true. 
+
+\paragraph{} Now, applying two different time shifts, one on the time reverse graph, and the other on the original, I expected the graphs to both be shifted to the left by 4 since we were subtracting 4 units. 
+
+\includegraphics[scale=0.6]{-t-4 of combo.png}
+
+\includegraphics[scale=0.6]{t-4 of combo.png}
+
+\paragraph{} As seen above, the result for the original function was what I expected, and the graph produced for the time reversal shift was also expected. 
+
+\paragraph{} Applying the time scale operations, I expected the graphs' critical points to occur early with multiplication and later with division. This is because the time values each f(t) value happens out would be earlier and later, depending on the operation. 
+
+\includegraphics[scale=0.6]{t div 2 of combo.png}
+
+\includegraphics[scale=0.6]{2t of combo.png}
+
+\paragraph{} As seen above, my expectations were proven true, with divison resulting in a wider graph, and multiplcation in a more squished graph. 
+
+\paragraph{} For the Python derivative function, I expected it to be the same as my hand-drawn function. 
+
+\includegraphics[scale=0.6]{deriv.png}
+
+As seen above, even after arduously trying to, and successfully plotting the derivative, it didn't match up exactly with my hand-drawn function. So, my expectation was wrong because of the lines extending incredibly high when the slope of 'Combo Function' is infinite. 
+
+%This section will go over the results of the lab. Use this area to describe %if the lab worked as expected or if the results are unexpected or different %from your hand calculations or intuition. Part of being a good engineer is %gaining intuition about these problems and being able to understand quickly %if something is wrong. Use code, plots, tables, and figures as necessary. %Make sure to cite all other works used and note them in the bibliography. A %sample entry is in this document.
+
+\section{Error Analysis}
+
+%This section will discuss error analysis of the experiment. Since this lab %deals with ideal simulation there shouldn't be any sources of error, so %instead this section can be used to describe any difficulties you had during %lab and how you solved them. Alternatively, if you couldn't get the %experiment to work, which is okay, you need to use this section to explain why %you couldn't get it to work to earn full points. 
+
+\paragraph{} The first problem I ran into was that I wrote my ramp function incorrectly. At first, I didn't remember that the ramp function was zero before and equal to zero. I thought it was always a constant slope of 1. I solved this problem and corrected my function through comparing graphs with a classmate and realizing my error. 
+
+\paragraph{} For part 3 of the lab, something I didn't originally take into account was having to plot over different time values explicitly in Python. Up until then, I had plotted over -5 to 10.  
+
+\paragraph{} For the derivative function, I had to overcome several difficulties. First, the function I hand-drew was difficult to duplicate using computer software. I tried to used an online calculator called "Desmos" to create the plot, but failed when I couldn't take the derivative of a step-wise function. I resorted to just scanning in the hand-drawn graph after failing to use "Draw.io" as well, which I hope is acceptable. Another issue I encountered was, in Python, I had to restrict the f'(t) range because it was so large you couldn't make out the shape of the graph correctly. Another problem I struggled with was that when plotting the derivative against time, their sizes were different. Going into the documentation, I was able to discern that I needed to cutoff the last time value in its array since the difference for that one was never calculated. This allowed me to plot the derivative against time. 
+
+\section{Questions} %also address any deliverables not yet put in yet
+    \begin{enumerate}
+        \item Are the plots from Part 3 Task 4 and Part 3 Task 5 identical? Is it possible for them to
+match? Explain why or why not.
+            \paragraph{} No, the hand-drawn derivative plot and the Python generated derivative plot are not identical. It's impossible for them to match under this specific scenario. In a more general case with a different function, they could surely match up if that function never has a slope of infinity.  
+        \item How does the correlation between the two plots (from Part 3 Task 4 and Part 3 Task 5)
+change if you were to change the step size within the time variable in Task 5? Explain why this happens.
+            \paragraph{} As the step size decreases, the differences between the plots ends up being just two extremely long lines in the Python generated graph. As the step size increases, the correlation between the two graphs gets better shape-wise, since the two long lines turn into shallower spikes. Disregarding the two extremely long lines, with a smaller step size the correlation between the graphs is almost exact. This is because, at a smaller step size the graph is more accurate since the graph is just a collection of connected points. At a smaller step size, we just have more points collected so we're more accurate.   
+        \item Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+            \paragraph{} The instructions for finding the derivative function were fairly vague. Also, I had trouble clearly answering the question just above this one because of how 'correlation' could be interpreted differently. Since this is our first real lab report, I'm also unclear on what I should put in the Methodologies section versus the Results section as far as code and graphs go, and I don't know when to include a bibliography in my report. 
+    \end{enumerate}
+
+\section{Conclusion}
+
+\paragraph{} From lab 2, I effectively learned how to create my own functions, craft arrays with different step sizes, the importance of step size when graphing, and how to effectively make plots in Python. My understanding of how to create a function from other functions also increased. Due to what I learned, this lab was successful. 
+
+\paragraph{} My only recommendations would include: providing more instruction on Task 5 of Part 3, rephrasing the second question asked, and to give the students an actual 'Sample Lab Report' rather than lab report instructions. Because of this lab, in the future I'll try shifting my thinking to that of a Mathematician/Engineer rather than a Programmer. This shift will hopefully allow me to complete future labs in a more time efficient manner. \\
+
+Github: \url{https://github.com/SethCram} 
+
+%Discuss briefly what you learned in this lab and whether or not you feel the %lab was successful. Include any recommendations for future labs as this is a %learning experience for all of us. Discuss any insights you gained from this %lab and how that will affect future work. \textit{Note: The bibliograhpy %needs to be on its own page.}
+
+\newpage
+
+\end{document}
